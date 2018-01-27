@@ -1,0 +1,110 @@
+﻿Thesis Outline
+Title: Non-rigid registration of mammogram images using the Large Displacement Optical Flow with flexible manual region preservation. 
+
+1. Introduction
+- what problem, what challenges, why this problem
+
+
+2. Background information 
+Registration algorithms often contain three components, each tackling the problem of 1)deformation models, 2) objective functions and 3) optimization strategies.  
+2.1 What is image registration? 
+	a. Definition of image registration and categories of transformations
+		- Definition of image registration. Set up in mathematical form
+		- Geometric transformations: rigid, affine, non-rigid
+
+	We focus on the non-rigid transformation.  In mammograms, anatomical streus can change their positions or shapes between or during scanes due to voluntary or physiological motions or imperfect scanning protocols. 
+
+	b. Three components of non-rigid registration
+		- Deformation model
+		- Similarity metric/Objective function
+		- Optimization method
+    
+    c. Two approaches 
+        - Differential methods (Gradient based optical flow formulations)
+        - Variational methods
+        Bridge: Connection between optical flow and non-rigid registration: same  problem different names in different community
+
+2.2 Thirion's Demons method 
+2.3  Variational Optical Flow estimation
+	a. Variational methods - Horn-Schuncks
+        - Optical flow as a solution of a minimization problem 
+            + assumptions: brightness consistency, first-degree Taylor-series expansion (first-order linearization of the Intensity function)
+            + regularization: minimize the variations of the flow field
+		- Limits
+            - dense sampling in time (ie. unable to handle large movement)
+            - occlusion or not smooth gradient change affects the entire estimation (because the energy function is defined over the image domain)
+            - First-order approximation
+		- Extensions relevant to the thesis
+			- Total Variation (TV1) to make it less noise to outliers, makes the objective function convex 
+			- Add gradient consistency constrain: make it robust against global lighting changes
+2.4 Extension of variational optical flow estimation
+	a. Hierarchical and warping [coarse-to-fine warping]
+		- Multi-resolution to deal with large displacements
+        - Warping serves three functions: regularizer, convergences to global minima, ???
+            + Implementation: not trivial, often use backwards warping using interpolation to avoid holes in the warped image
+            + 
+	b. Global and local combined [briefly mention]
+
+2.4 Evaluation metrics
+	a. Golden truth 
+	b. Visual inspection
+
+3. State of the Art in Medical Image Registration
+The goal is to *present* (critical analysis comes later) the ideas
+3.1 Large Displacement Optical Flow with Rich Descriptor Matching
+    a. New energy function with descriptor matching constraints
+        - Relaxes the requirement on dense sampling in time by adding descriptor matching constraints to the energy function.  Therefore, the algorithm can estimate motion fields between two images taken in large time intervals apart with the comparably high accuracy as known from variational optical flow estimated over a series of images sampled densely in time
+    b. Pros
+        - Flexibility in choosing descriptors that are suitable for given images, eg: HOG features
+        -  	
+3.2 State-of-the art extension of Demon’s algorithm
+
+	
+3.3 Other learning-based algorithms [briefly]
+	a. SVF-net
+	b. Non-rigid image registration using fully convolutional networks with deep self-supervision
+
+4. Research Question
+4.1 Concise statement of the problem the thesis tackles: 
+Given a sequence of mammogram images taken a certain time interval apart, can we align the two images without losing key features/structures and without distorting important information for diagonosis, and without introducting any false information?
+
+4.2 Justify that this question is not yet answered with *direct* reference to section 3. Include analysis of the state of the art: show how each class of current approaches fails
+
+4.3 Discuss why it’s worthwhile to answer this question, applications of your algorithm
+
+Accurate image registration algorithm removes the effects of external variances, such as a patient's pose and camera perspectives, and thus allows meaningful comparison among a series of images. Main medical applications includes: an early detection of abnormalities, studies of disease progressions by monitoring changes in size and shape over time, image guided surgery or radiotheraphy by relating pre-operative images, and development of a statistical model of variation associated with a disease. 
+
+5. Describe how you solved the problem[MAIN]
+5.1 Preprocessing: anisotropic diffusion/blurring
+5.2 Variational model: LDOF + region/keypoint preservation 
+	- Define the energy function 
+	- Explain each term
+
+5.3 Optimization - Hierachical/multi-resolution approach 
+5.4 Backward warping
+5.5 Optimization: SOR 
+5.5 Evaluation 
+	- Visualization 
+	- Explicitly mention the limit of evaluation metrics
+	- Compare with Horn-Schunck, Demon’s algorithm
+Code available at github
+
+
+6. Conclusions
+6.1 Most important -> least
+	a) The problem stated in Section 4 has been solved: as shown in Sections ? 	to ??, an algorithm capable handling of deformable mammogram images fast 			has been developed.
+	b) The principal mechanism needed in the improved deformable imgae 				algorithm is ???. 
+	c) etc
+
+6.2 Summary of Contributions
+	List the contributions of *new* knowledge that your thesis makes.
+	a) Evaluation of LDOF on mammogram images. Comparion of optical flow algorithm and medical image algorithm which have not, to my knowledge, yet compared head to head.
+	b) Extension to allow human knowledge/expertise to be incorporated to the optimization function
+	c) 
+6.3 Future Research
+	a)Chain registration
+	b)Better evaluation method - Gold truth dataset is needed just like other optical flow evaluation dataset by Baker [?] 
+	c) Online learning. more human in the loop. 
+
+7. References
+8. Appendices 

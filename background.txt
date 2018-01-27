@@ -1,0 +1,4 @@
+2. Background
+2.1 What is image registration 
+Mathematical definition:
+    Given two images, I1 and I2, an optical flow aims to estimate a dense motion field between the two images.  This can be viewed as a registration problem in which we try to find the location $(x', y')$ in $I_2$ to which a pixel $p$ at $(x,y)$ in $I_1$ is moved (See Figure \ref(fig:of_intro))
